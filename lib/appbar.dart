@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -37,17 +38,24 @@ class _AppBarState extends State<CustomBar> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 16,right: 16,top: 15),
+            margin: EdgeInsets.only(left: 20,right: 20,top: 15),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                Text('Welcome Back',
-                style: new TextStyle(
-                    color: Colors.grey,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400
-                ),
-                ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      child:  Text('Welcome Back',
+                        style: new TextStyle(
+                            color: Colors.grey,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400
+                        ),
+                      ),
+                    ),
+                  ),
+
                 Padding(padding: EdgeInsets.only(top: 7.0),
                 child:
                 Text('Creative Mints',
@@ -83,36 +91,105 @@ class _AppBarState extends State<CustomBar> {
             ),
           ),
           Expanded(
-
               child:  GridView.count(
+                padding: EdgeInsets.all(16),
                 crossAxisCount: 2,
-                 crossAxisSpacing: 70,
-                 mainAxisSpacing: 70,
-                 // childAspectRatio:1/0.5,
+                 crossAxisSpacing: 20,
+                 mainAxisSpacing: 20,
+                childAspectRatio:20/13,
                 children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                    image: DecorationImage(
-                    image: AssetImage("assets/images/green.jpg"),
-                    fit: BoxFit.cover,),
-                      borderRadius: BorderRadius.circular(13),
+                  CategoryCard(
+                    ImgSrc: "assets/images/green.jpg",
+                    SvgSrc: "assets/svg/dollar.svg",
+                    title: "Transaction",
+                    item: "7 items",
                   ),
-                    child: IconButton(
-                      onPressed: (){},
-                      icon: SvgPicture.asset("assets/svg/dollar.svg",
-                        height: 40,
-                        width: 40,
-                      ),
-                    ),
-
-                    ),
+                  CategoryCard(
+                    ImgSrc: "assets/images/red.jpg",
+                    SvgSrc: "assets/svg/budget.svg",
+                    title: "Budget",
+                    item: "4 items",
+                  ),
+                  CategoryCard(
+                    ImgSrc: "assets/images/yellow.png",
+                    SvgSrc: "assets/svg/star.svg",
+                    title: "Recommendations",
+                    item: "6 items",
+                  ),
+                  CategoryCard(
+                    ImgSrc: "assets/images/blue.jpg",
+                    SvgSrc: "assets/svg/credit-card.svg",
+                    title: "Credit Cards",
+                    item: "3 Cards",
+                  ),
                 ],
-
-              )
+              ),
+          ),
+          Container(
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Container(
+                child: Text('Choose a categories',
+                  style: new TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700
+                  ),
+                ),
+              ),
+            ),
           )
         ],
       ),
     );
+  }
+}
 
+class CategoryCard extends StatelessWidget {
+  final String ImgSrc;
+  final String SvgSrc;
+  final String title;
+  final String item;
+  const CategoryCard({
+    Key key,
+    this.ImgSrc,
+    this.SvgSrc,
+    this.title,
+    this.item
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+      image: DecorationImage(
+      image: AssetImage(ImgSrc),
+      fit: BoxFit.cover,),
+        borderRadius: BorderRadius.circular(13),
+    ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          IconButton(
+            onPressed: (){},
+            icon: SvgPicture.asset(SvgSrc,
+              height: 25,
+              width: 25,
+            ),
+          ),
+
+          Text(title,style: new TextStyle(
+            color: Colors.white,
+          ),
+          ),
+          Text(item,style: new TextStyle(
+            color: Colors.white,
+            fontSize: 10
+          ),
+          )
+        ],
+      ),
+      );
   }
 }
